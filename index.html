@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Mini App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Web App</title>
 </head>
 <body>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <h1>Telegram Mini App</h1>
-    <button id="button">Increase Count</button>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    const tg = new TelegramWebApp();
 
-    <script src="app.js"></script>
+    // Слухайте подію "onUpdate", щоб отримувати всю інформацію, яку надає Telegram
+    tg.initDataUnsafe((update) => {
+      // Отримайте дані оновлення
+      const data = update.data;
+
+      // Зробіть AJAX-запит до вашого бекенд-сервера
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://127.0.0.1:8000/telegram");
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(JSON.stringify(data));
+    });
+
+    // Ініціалізуйте веб-додаток Telegram
+    tg.init();
+  </script>
 </body>
 </html>
