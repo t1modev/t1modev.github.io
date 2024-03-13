@@ -11,20 +11,32 @@
     const tg = new TelegramWebApp();
 
     // Слухайте подію "onUpdate", щоб отримувати всю інформацію, яку надає Telegram
+
     tg.initDataUnsafe((update) => {
       // Отримайте дані оновлення
       const data = update.data;
+      function increaseCount() {
+        fetch('https://01b5-2001-1c02-2013-3300-e164-df0d-24fb-7114.ngrok-free.app/api/clicks/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ 'telegram_id': data.user.id })
+  });
+}
 
       // Зробіть AJAX-запит до вашого бекенд-сервера
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "https://01b5-2001-1c02-2013-3300-e164-df0d-24fb-7114.ngrok-free.app/api/users/");
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.send(JSON.stringify(data));
+      //const xhr = new XMLHttpRequest();
+      //xhr.open("POST", "https://01b5-2001-1c02-2013-3300-e164-df0d-24fb-7114.ngrok-free.app/api/users/");
+      //xhr.setRequestHeader("Content-Type", "application/json");
+      //xhr.send(JSON.stringify(data));
     });
 
     // Ініціалізуйте веб-додаток Telegram
     tg.init();
+    document.getElementById('button').addEventListener('click', increaseCount);
+
   </script>
   <h1>bom bom</h1>
+  <button id="button">Increase Count</button>
+
 </body>
 </html>
