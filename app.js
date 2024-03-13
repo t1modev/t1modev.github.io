@@ -1,4 +1,3 @@
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 // Ініціалізація mini app
 Telegram.WebApp.init()
 
